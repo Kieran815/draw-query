@@ -56,8 +56,8 @@ var draw = (function() {
 
     //Write the x,y coods to the target div
     writeXY: function() {
-      document.getElementById('trackX').innerHTML = 'X: ' + x;
-      document.getElementById('trackY').innerHTML = 'Y: ' + y;
+      $('trackX').text = 'X: ' + x;
+      $('trackY').text = 'Y: ' + y;
     },
 
     //Set the x1,y1
@@ -187,14 +187,16 @@ var draw = (function() {
 
 })();
 
+
 //Initialize draw
 draw.init();
+
 
 //Add a mousemove listener to the canvas
 //When the mouse reports a change of position use the event data to
 //set and report the x,y position on the mouse.
-draw.getCanvas().addEventListener('mousemove', function(evt) {
-  draw.setXY(evt);
+$(draw.getCanvas()).mousemove(function(event) {
+  draw.setXY(event);
   draw.writeXY();
   if(draw.getShape()==='path' && draw.getIsDrawing()===true) {
     draw.draw();
@@ -203,39 +205,39 @@ draw.getCanvas().addEventListener('mousemove', function(evt) {
 
 //Add a mousedown listener to the canvas
 //Set the starting position
-draw.getCanvas().addEventListener('mousedown', function() {
+$(draw.getCanvas()).mousedown(function() {
   draw.setStart();
   draw.setIsDrawing(true);
 }, false);
 
 //Add a mouseup listener to the canvas
 //Set the end position and draw the rectangle
-draw.getCanvas().addEventListener('mouseup', function() {
+$(draw.getCanvas()).mouseup(function() {
   draw.setEnd();
   draw.draw();
   draw.setIsDrawing(false);
 }, false);
 
-document.getElementById('btnRect').addEventListener('click', function(){
+$('btnRect').on('click', function(){
     draw.setShape('rectangle');
 }, false);
 
-document.getElementById('btnLine').addEventListener('click', function(){
+$('btnLine').on('click', function(){
     draw.setShape('line');
 }, false);
 
-document.getElementById('btnCircle').addEventListener('click', function(){
+$('btnCircle').on('click', function(){
     draw.setShape('circle');
 }, false);
 
-document.getElementById('btnPath').addEventListener('click', function(){
+$('btnPath').on('click', function(){
     draw.setShape('path');
 }, false);
 
-document.getElementById('btnTriangle').addEventListener('click', function() {
+$('btnTriangle').on('click', function() {
   draw.setShape('triangle');
-}, false)
+}, false);
 
-document.getElementById('favcolor').addEventListener('change', function() {
+$('favcolor').on('change', function() {
   draw.setColor();
-})
+});
